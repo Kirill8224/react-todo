@@ -1,4 +1,6 @@
 import { ProductItem } from "./ProductItem"
-export function ProductList(){
-    return(ProductItem(1))
+export function ProductList({props}){
+    return(props.map((prop) => {
+        return(<ProductItem prop= {prop}/>)
+    }))
 }
