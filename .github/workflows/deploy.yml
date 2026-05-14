@@ -1,9 +1,8 @@
-name: Deploy Vite App
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: 'main'
 
 permissions:
   contents: read
@@ -11,15 +10,18 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: true
 
 jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps: deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-todo
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,16 +35,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: react-todo
 
       - name: Build
         run: npm run build
-        working-directory: react-todo
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'react-todo/dist'
+          path: './react-todo/dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
