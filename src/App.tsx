@@ -3,13 +3,14 @@ import { ProductList } from './ProductList'
 import './App.css'
 
 function App() {
-  const props = [
+  const products = [
     { id: 1, name: "Хлеб", price: 30, category: "Выпечка" },
     { id: 2, name: "Молоко", price: 60, category: "Молочные" },
     { id: 3, name: "Яблоки", price: 120, category: "Фрукты" },
   ]
- 
-  return(<ProductList props= {props}/>)
+  {console.log('App')}
+  return(<ProductList products= {products}/>
+  )
 }
 
 export default App

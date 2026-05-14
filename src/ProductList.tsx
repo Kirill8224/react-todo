@@ -1,6 +1,7 @@
 import { ProductItem } from "./ProductItem"
-export function ProductList({props}){
-    return(props.map((prop) => {
-        return(<ProductItem prop= {prop}/>)
+export function ProductList({products}){
+    {console.log('ProducList')}
+    return(products.map((product) => {
+        return(<ProductItem key={product.id} product= {product}/>)
     }))
 }
