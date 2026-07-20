@@ -3,11 +3,14 @@ import { tracks, type TrackType } from "./dal"
 import { Card, FormControl, Select, InputLabel, MenuItem, Chip,  Badge, Avatar, List} from "@mui/material"
 import { TrackItem } from "./ProductItem"
 export function Menu(){
-    const [count, setCount] = useState<number>(0)
+    const [SelectedId, SetSelectedId] = useState<number>(1)
+    const SelectedTrack= tracks.find((track)=>{return(track.id === SelectedId)})
     return(<Card>
-        <Badge sx={{m: 1}} badgeContent= {count}><Chip onClick={()=>{setCount(count + 1)}} label= {<Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrM4KktKXsI3bQwea6nC9ppHt60JXRlVEXzO0GoxNxUA&s=50" />} /></Badge>
-        <List>
-            {tracks.map((Track)=>{return(<TrackItem track= {Track} />)})}
-        </List>
+        <Badge sx={{m: 1}} badgeContent= {tracks.length}>
+        <Select value={SelectedId} onChange={(e)=>{SetSelectedId(Number(e.target.value))}}>
+            {tracks.map((track)=>{return(<MenuItem value={track.id} key={track.id}>{track.title}</MenuItem>)})}
+        </Select>
+        </Badge>
+        <TrackItem track={SelectedTrack} />
     </Card>)
 }
