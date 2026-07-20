@@ -1,23 +1,34 @@
-
-import { Card, Typography, Radio, RadioGroup, FormLabel, FormControlLabel, FormControl, Slider, Rating} from "@mui/material"
-import type { TrackType } from "./dal"
-import { useState } from "react"
-export function TrackItem({track}: {track: TrackType}){
-    const [quality, setQuality]= useState<string>('')
-    const [volume, setVolume]= useState<number>(0)
-    const [Grade, SetGrade]= useState<number>(0)
-    {console.log(quality, volume, Grade, 's')}
-    return(<Card key={track.id} sx={{height: 300, borderStyle: 'solid', m: 1, p: 1}}>
-       <Typography variant="h4">{track.title}</Typography>
-       <Typography>испольнитель: {track.artist}</Typography>
-       <FormControl>
-        <FormLabel>качестов звука</FormLabel>
-        <RadioGroup onChange={(e)=>{setQuality(e.target.value)}}>
-        <FormControlLabel value='no good' label= 'плохое' control={<Radio />}  />
-        <FormControlLabel value='good' label='хорошее' control={<Radio />} />
-        </RadioGroup>
-       </FormControl>
-       <Slider onChange={(e, value)=>{setVolume(value)}} valueLabelDisplay="auto" />
-        <Rating onChange={(e, value)=>{SetGrade(value)}}></Rating>
-    </Card>)
-}
+import { 
+    Card, 
+    Typography, 
+    Radio, 
+    RadioGroup, 
+    FormControlLabel, 
+    FormControl, 
+    Slider, 
+    Rating, 
+    Box, 
+    Stack 
+  } from "@mui/material"
+  import VolumeUp from '@mui/icons-material/VolumeUp' // Потребуется пакет @mui/icons-material
+  import type { TrackType } from "./dal"
+  import { useState } from "react"
+  
+  export function TrackItem({ track }: { track: TrackType }) {
+    // Состояния для интерактива
+    return (
+      <Card sx={{ m: 1, p: 2, maxWidth: 400, mx: 'auto' , mt: 2,borderRadius: 3 }}>
+        <Rating value={2} />
+        <Typography variant="body2">громкость</Typography>
+        <Slider valueLabelDisplay="auto"/>
+        <Typography variant="body2">качество звука</Typography>
+        <FormControl>
+            <RadioGroup>
+                <FormControlLabel value={'first'} label= 'первое' control={<Radio />} />
+                <FormControlLabel value={'second'} label= 'второе' control= {<Radio />} />
+            </RadioGroup>
+        </FormControl>
+      </Card>
+    )
+  }
+  
