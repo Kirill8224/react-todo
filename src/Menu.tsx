@@ -1,16 +1,12 @@
 import { useState } from "react"
 import { tracks, type TrackType } from "./dal"
-import { Card, FormControl, Select, InputLabel, MenuItem, Chip,  Badge, Avatar, List} from "@mui/material"
+import { Card, TextField} from "@mui/material"
 import { TrackItem } from "./ProductItem"
 export function Menu(){
-    const [SelectedId, SetSelectedId] = useState<number>(1)
-    const SelectedTrack= tracks.find((track)=>{return(track.id === SelectedId)})
+    const [Selected, SetSelected] = useState<string>('')
+    const SelectedTracks: TrackType[]= tracks.filter((track)=>{return(track.title.includes(Selected))})
     return(<Card>
-        <Badge sx={{m: 1}} badgeContent= {tracks.length}>
-        <Select value={SelectedId} onChange={(e)=>{SetSelectedId(Number(e.target.value))}}>
-            {tracks.map((track)=>{return(<MenuItem value={track.id} key={track.id}>{track.title}</MenuItem>)})}
-        </Select>
-        </Badge>
-        <TrackItem track={SelectedTrack} />
+        <TextField value={Selected} onChange={(e)=>{SetSelected(e.target.value)}} sx={{m: 2}} label='поиск' placeholder='печатайте'></TextField>
+        {SelectedTracks.map((track)=>{return( <TrackItem track= {track} />)})}
     </Card>)
 }
